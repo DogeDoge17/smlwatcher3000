@@ -1,0 +1,7 @@
+/target
+/output
+/.mypy_cache
+result
+.txt
+watched.txt
+

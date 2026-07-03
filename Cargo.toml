@@ -1,0 +1,13 @@
+[package]
+name = "smlwatcher3000"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+mpris = "2.1.0"
+pico-args = "0.5.0"
+tokio = { version = "1.52.3", features = ["macros", "rt-multi-thread"] }
+whoami = "2.1.2"
+thirtyfour = "0.37.1"
+anyhow = "1.0.103"
+rand = "0.10.1"
