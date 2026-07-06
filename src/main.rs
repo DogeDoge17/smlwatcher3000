@@ -91,21 +91,29 @@ async fn check_video_length(driver: &WebDriver) -> anyhow::Result<()> {
     }
 
     loop {
-        let duration: f64 = driver
+        let duration: f64 = match driver
             .execute(
                 "return arguments[0].duration;",
                 vec![video_element.to_json()?],
             )
-            .await?
-            .convert()?;
+            .await
+            .and_then(|value| value.convert())
+        {
+            Ok(duration) => duration,
+            Err(_) => break,
+        };
 
-        let current_time: f64 = driver
+        let current_time: f64 = match driver
             .execute(
                 "return arguments[0].currentTime;",
                 vec![video_element.to_json()?],
             )
-            .await?
-            .convert()?;
+            .await
+            .and_then(|value| value.convert())
+        {
+            Ok(current_time) => current_time,
+            Err(_) => break,
+        };
 
         if current_time >= duration || driver.current_url().await?.as_str() != url {
             break;
